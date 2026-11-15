@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> University Library</title>
+        <style> 
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                background-color: #f4f6f9;
+            }
+            nav {
+            background-color: #243447;
+            padding: 18px;
+            }
+            nav a {
+                color: white;
+                text-decoration: none;
+                margin-right: 25px;
+            }
+            .container {
+            width: 85%;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            }
+            input, select {
+            padding: 9px;
+            margin: 8px 0 15px;
+            width: 100%;
+            box-sizing: border-box;
+            }
+            button, .btn {
+            background-color: #2878c8;
+            color: white;
+            padding: 9px 15px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            }
+            .delete {
+            background-color: #dc3545;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
+                text-align: left;
+            }
+            th {
+            background-color: #243447;
+            color: white;
+            }
+
+            .message {
+                background-color: #d4edda;
+                color: #155724;
+                padding: 12px;
+                margin-bottom: 15px;
+            }
+            .errorlist {
+            color: red;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <nav>
+            {% if user.is_authenticated %}
+
+                <!-- Options for logged-in users -->
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'book_list' %}">View Books</a>
+                <a href="{% url 'add_book' %}">Add Book</a>
+                <a href="{% url 'add_student' %}">Add Student</a>
+                <a href="{% url 'add_borrow_record' %}">Borrow Book</a>
+
+                <span>Welcome, {{ user.username }}!</span>
+
+                <a href="{% url 'logout' %}">Logout</a>
+
+            {% else %}
+
+                <!-- Options for users who are not logged in -->
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'book_list' %}">View Books</a>
+                <a href="{% url 'register' %}">Register</a>
+                <a href="{% url 'login' %}">Login</a>
+
+            {% endif %}
+        </nav>
+
+        <div class="'container">
+             {% if messages %}
+                {% for message in messages %}
+                    <div class="message">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
